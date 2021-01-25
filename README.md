@@ -1,3 +1,4 @@
+# Tic Tac Toe React Tutorial
 This is a simple tic-tac-toe game made following [the official documentation tutorial](https://reactjs.org/tutorial/tutorial.html). The following are TO-DO tasks to better understand React's features:
 
 - Add support for Docker;
