@@ -1,13 +1,13 @@
 # Tic Tac Toe React Tutorial
 This is a simple tic-tac-toe game made following [the official documentation tutorial](https://reactjs.org/tutorial/tutorial.html). The following are TO-DO tasks to better understand React's features:
 
-- Add support for Docker;
-- Display the location for each move in the format (col, row) in the move history list;
-- Bold the currently selected item in the move list;
-- Rewrite Board to use two loops to make the squares instead of hardcoding them;
-- Add a toggle button that lets you sort the moves in either ascending or descending order;
-- When someone wins, highlight the three squares that caused the win;
-- When no one wins, display a message about the result being a draw.
+- [X] Add support for Docker;
+- [ ] Display the location for each move in the format (col, row) in the move history list;
+- [ ] Bold the currently selected item in the move list;
+- [ ] Rewrite Board to use two loops to make the squares instead of hardcoding them;
+- [ ] Add a toggle button that lets you sort the moves in either ascending or descending order;
+- [ ] When someone wins, highlight the three squares that caused the win;
+- [ ] When no one wins, display a message about the result being a draw.
 
 The rest of this document is created automatically from bootstrapping [this repo](https://github.com/facebook/create-react-app).
 
@@ -42,7 +42,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### `npm run eject
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
