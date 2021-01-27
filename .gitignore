@@ -14,6 +14,9 @@
 # versioning
 /package-lock.json
 
+# webpack
+/dist
+
 # misc
 .DS_Store
 .env.local
