@@ -12,10 +12,10 @@
 /build
 
 # versioning
-/package-lock.json
+package-lock.json
 
 # webpack
-/dist
+/dist/*
 
 # misc
 .DS_Store
