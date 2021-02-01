@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './Board';
+import MoveList from './MoveList';
 
 interface IProps {
 }
@@ -99,6 +100,7 @@ export default class Game extends React.Component<IProps, IState> {
           />
         </div>
         <div className="game-info">
+          <MoveList/>
           <div>{status}</div>
           <ol>{moves}</ol>
         </div>
