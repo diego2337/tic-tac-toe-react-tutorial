@@ -12,22 +12,35 @@ export default class Game extends React.Component {
       }
       this.board = new Board();
     }
+
+    getCurrentBoard() {
+      const history = this.state.history.slice(0, this.state.stepNumber + 1);
+      return history[history.length - 1]; 
+    }
   
     handleClick(i) {
-      const history = this.state.history.slice(0, this.state.stepNumber + 1);
-      const current = history[history.length -1];
+      const current = this.getCurrentBoard();
       const squares = current.squares.slice();
       if (this.board.calculateWinner(squares) || squares[i]) {
         return;
       }
       squares[i] = this.state.xIsNext ? 'X' : 'O';
+      this.changeGameState({
+        squares: squares,
+        clickedIndex: i
+      });
+    }
+
+    changeGameState(gameData) {
+      const history = this.state.history.slice(0, this.state.stepNumber + 1);
       this.setState({
         history: history.concat([{
-          squares: squares
+          squares: gameData.squares,
+          rowColPosition: this.board.mapIndexToColRow(gameData.clickedIndex)
         }]),
         stepNumber: history.length,
-        xIsNext: !this.state.xIsNext,
-      })
+        xIsNext: !this.state.xIsNext
+      });
     }
   
     jumpTo(step) {
@@ -36,15 +49,11 @@ export default class Game extends React.Component {
         xIsNext: (step % 2) === 0,
       })
     }
-  
-    render() {
-      const history = this.state.history;
-      const current = history[this.state.stepNumber];
-      const winner = this.board.calculateWinner(current.squares);
-  
-      const moves = history.map((step, move) => {
+
+    showMoves() {
+      return this.state.history.map((step, move) => {
         const desc = move ?
-          'Go to move #' + move :
+          'Move ' + step.rowColPosition + '. Go to move #' + move :
           'Go to game start';
         return (
           <li key={move}>
@@ -52,13 +61,23 @@ export default class Game extends React.Component {
           </li>
         )
       });
-  
-      let status;
-      if (winner) {
-        status = 'Winner: ' + winner;
+    }
+
+    showGameStatus(status) {
+      if (status) {
+        return 'Winner: ' + status;
       } else {
-        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+        return 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
+    }
+
+    render() {
+      const current = this.state.history[this.state.stepNumber];
+      const winner = this.board.calculateWinner(current.squares);
+
+      let moves = this.showMoves();
+  
+      let status = this.showGameStatus(winner);
   
       return (
         <div className="game">
