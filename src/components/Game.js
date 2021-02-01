@@ -36,7 +36,7 @@ export default class Game extends React.Component {
       this.setState({
         history: history.concat([{
           squares: gameData.squares,
-          rowColPosition: this.board.mapIndexToRowCol(gameData.clickedIndex)
+          rowColPosition: this.board.mapIndexToColRow(gameData.clickedIndex)
         }]),
         stepNumber: history.length,
         xIsNext: !this.state.xIsNext
