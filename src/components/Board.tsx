@@ -1,7 +1,16 @@
 import React from 'react';
 import Square from './Square';
-export default class Board extends React.Component {
-  mapIndexToColRow(index) {
+
+interface IProps {
+  squares: Array<any>,
+  onClick: React.MouseEventHandler<HTMLButtonElement>
+}
+
+interface IState {
+}
+
+export default class Board extends React.Component<IProps, IState> {
+  mapIndexToColRow(index: number) {
     switch (index) {
       case 0:
         return "(0, 0)";
@@ -26,7 +35,7 @@ export default class Board extends React.Component {
     }
   }
 
-  calculateWinner(squares) {
+  calculateWinner(squares: Array<number>): number | null {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -45,20 +54,8 @@ export default class Board extends React.Component {
     }
     return null;
   }
-  
-  handleClick(i) {
-    const squares = this.state.squares.slice();
-    if (this.calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    });
-  }
 
-  renderSquare(i) {
+  renderSquare(i: any) {
     return <Square 
               value={this.props.squares[i]}
               onClick={() => this.props.onClick(i)}
