@@ -10,7 +10,7 @@ This is a simple tic-tac-toe game made following [the official documentation tut
 - [ ] When someone wins, highlight the three squares that caused the win;
 - [ ] When no one wins, display a message about the result being a draw.
 
-The rest of this document is created automatically from bootstrapping [this repo](https://github.com/facebook/create-react-app).
+The rest of this document was created automatically from bootstrapping [this repo](https://github.com/facebook/create-react-app).
 
 # Getting Started with Create React App
 
