@@ -8,7 +8,6 @@ interface IProps {
 
 interface IState {
 }
-
 export default class Board extends React.Component<IProps, IState> {
   mapIndexToColRow(index: number) {
     switch (index) {
