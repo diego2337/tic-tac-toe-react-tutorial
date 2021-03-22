@@ -110,7 +110,7 @@ export default class Game extends React.Component<IProps, IState> {
 
   showGameStatus(status: Array<number> | null) {
     if (status) {
-      return 'Winner: ' + status[0];
+      return 'Winner: ' + (this.state.xIsNext ? 'O' : 'X');
     } else {
       return 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
