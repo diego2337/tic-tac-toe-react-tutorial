@@ -122,14 +122,10 @@ export default class Game extends React.Component<IProps, IState> {
       colors.push("black");
     }
     if (winnerRow) {
-      console.log("winnerRow:");
-      console.log(winnerRow);
       for (let i = 0; i < winnerRow.length; i++) {
         colors[winnerRow[i]] = "green";
       }
     }
-    console.log("colors:");
-    console.log(colors);
     return colors;
   }
 
