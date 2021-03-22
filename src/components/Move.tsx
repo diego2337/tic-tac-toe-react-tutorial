@@ -11,12 +11,7 @@ interface IState {
 export default class Move extends React.Component<IProps, IState> {
     render() {
         return (
-            <ol style = { this.renderStyle() }>{this.props.move}</ol>
+            <ol>{this.props.move}</ol>
         );
-    }
-
-    renderStyle() {
-        /** TODO - implement styling */
-        return undefined;
     }
 }
