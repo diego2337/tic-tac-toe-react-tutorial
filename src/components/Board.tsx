@@ -3,6 +3,7 @@ import Square from './Square';
 
 interface IProps {
   squares: Array<any>,
+  squareStyles: Array<string>,
   onClick: React.MouseEventHandler<HTMLButtonElement>
 }
 
@@ -34,52 +35,37 @@ export default class Board extends React.Component<IProps, IState> {
     }
   }
 
-  calculateWinner(squares: Array<number>): number | null {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
-      }
+  render() {
+    let squares: Array<any> = [];
+    let rowLength = 3;
+    for(let i = 0; i < rowLength; i++) {
+      squares.push([]);
+      this.renderRow(i, squares[i]);
+      squares[i] = <div className = "board-row">
+          { squares[i] }
+      </div>
     }
-    return null;
+    return (
+      <div>
+        { squares }
+      </div>
+    );
+  }
+
+  renderRow(row: number, square: Array<any>) {
+    let colLength = 3;
+    for (let i = 0; i < colLength; i++) {
+      square.push(
+        this.renderSquare(i + (colLength * row))
+      );
+    }
   }
 
   renderSquare(i: any) {
     return <Square 
+              style = {{ color: this.props.squareStyles[i] }}
               value={this.props.squares[i]}
               onClick={() => this.props.onClick(i)}
     />;
-  }
-
-  render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
   }
 }

@@ -27,7 +27,7 @@ export default class Game extends React.Component<IProps, IState> {
 
   render() {
     const current = this.state.history[this.state.stepNumber];
-    const winner = this.board.calculateWinner(current.squares);
+    const winner = this.calculateWinner(current.squares);
 
     let moves = this.showMoves();
 
@@ -41,6 +41,7 @@ export default class Game extends React.Component<IProps, IState> {
         <div className="game">
           <div className="game-board">
             <Board 
+              squareStyles = { this.getSquareStyles(winner) }
               squares = { current.squares }
               onClick = { (i) => this.handleClick(i) }
             />
@@ -53,20 +54,24 @@ export default class Game extends React.Component<IProps, IState> {
     );
   }
 
-  renderMoves(moves: Array<ReactNode>) {
-    let rows:Array<ReactNode> = [];
-    console.log("moves:");
-    console.log(moves);
-    for (let i = 0; i < this.state.stepNumber; i++) {
-      let bold = "bold";
-      rows.push(
-        <Move
-          style = {{ fontWeight: bold }}
-          move = { moves[i] }
-        />
-      );
+  calculateWinner(squares: Array<number>): Array<number> | null {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return lines[i];
+      }
     }
-    return rows;
+    return null;
   }
 
   showMoves(): Array<ReactNode> {
@@ -82,6 +87,20 @@ export default class Game extends React.Component<IProps, IState> {
     });
   }
 
+  renderMoves(moves: Array<ReactNode>) {
+    let rows:Array<ReactNode> = [];
+    for (let i = 0; i < this.state.stepNumber; i++) {
+      let bold = "bold";
+      rows.push(
+        <Move
+          style = {{ fontWeight: bold }}
+          move = { moves[i] }
+        />
+      );
+    }
+    return rows;
+  }
+
   jumpTo(step: number) {
     this.setState({
       stepNumber: step,
@@ -89,18 +108,31 @@ export default class Game extends React.Component<IProps, IState> {
     });
   }
 
-  showGameStatus(status: number | null) {
+  showGameStatus(status: Array<number> | null) {
     if (status) {
-      return 'Winner: ' + status;
+      return 'Winner: ' + status[0];
     } else {
       return 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
   }
 
+  getSquareStyles(winnerRow: Array<number> | null): Array<string>  {
+    let colors = [];
+    for (let i = 0; i < 9; i++) {
+      colors.push("black");
+    }
+    if (winnerRow) {
+      for (let i = 0; i < winnerRow.length; i++) {
+        colors[winnerRow[i]] = "green";
+      }
+    }
+    return colors;
+  }
+
   handleClick(i: any) {
     const current = this.getCurrentBoard();
     const squares = current.squares.slice();
-    if (this.board.calculateWinner(squares) || squares[i]) {
+    if (this.calculateWinner(squares) || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
